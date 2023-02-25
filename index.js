@@ -13,8 +13,10 @@ const app = express()
 app.use(express.json())
 app.get('/',async (req,res)=>{
   try {
-    let result = await pool.execute('SELECT * FROM users');
-    res.status(200).send(result[0]);
+    let conn = await pool.getConnection();
+    let [rows, fields] = await conn.query('SELECT * FROM tovars');
+    conn.release();
+    res.status(200).send(rows);
   }
   catch (e) { res.status(500).send(e);}
 
