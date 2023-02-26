@@ -3,5 +3,6 @@ import controller from "./controller.js";
 
 const router = new Router;
 
-router.get('/', controller.getAll);
+router.get('/users', controller.getAll);
+router.get('/users/:id', controller.getOne);
 export default router;

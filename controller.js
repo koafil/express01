@@ -19,6 +19,17 @@ class Controller {
       res.status(500).send(e);
     }
   }
+  async getOne(req, res) {
+    try {
+      const {id} = req.params;
+      let conn = await pool.getConnection();
+      let [rows, fields] = await conn.query('SELECT * FROM users WHERE id = ?',id);
+      conn.release();
+      res.status(200).send(rows);
+    } catch (e) {
+      res.status(500).send(e);
+    }
+  }
 }
 
 export default new Controller;
